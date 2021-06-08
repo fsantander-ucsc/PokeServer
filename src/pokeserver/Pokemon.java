@@ -5,7 +5,7 @@
  */
 package pokeserver;
 
-
+import pokeserver.PokeBankService;
 import irPokemon.irPokemon;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -13,7 +13,8 @@ import java.util.Random;
 
 public class Pokemon implements irPokemon {
     static int posibilidadFallo=75;
-    
+    PokeBankService bankService = new PokeBankService();
+
     @Override
     public String pokeHoroscopo(int anho) throws RemoteException {
 
