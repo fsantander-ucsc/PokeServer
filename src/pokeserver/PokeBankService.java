@@ -12,17 +12,19 @@ package pokeserver;
 public class PokeBankService {
     private float balanceTotal = 0;
     
-    public void agregarAlBalance(float monto){
+    public String agregarAlBalance(float monto){
         this.balanceTotal +=  monto;
+        return "Se ha agregado "+monto+"!";
     }
     
-    public void quitarAlBalance(float monto){
+    public String quitarAlBalance(float monto){
         if(this.balanceTotal > monto){
             this.balanceTotal -= monto;
         }
         else{
             this.balanceTotal = 0;
         }
+        return "Se ha quitado "+monto+"!";
     }
     
     public String verBalanceTotal(){

@@ -315,12 +315,12 @@ public class Pokemon implements irPokemon {
         return resultado;
     }
     
-    public void agregarDinero(float monto){
-        this.bankService.agregarAlBalance(monto);
+    public String agregarDinero(float monto){
+        return this.bankService.agregarAlBalance(monto);
     }
     
-    public void quitarDinero(float monto){
-        this.bankService.quitarAlBalance(monto);
+    public String quitarDinero(float monto){
+        return this.bankService.quitarAlBalance(monto);
     }
     
     public String verBalance(){
