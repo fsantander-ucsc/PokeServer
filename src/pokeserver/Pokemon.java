@@ -226,7 +226,6 @@ public class Pokemon implements irPokemon {
      * @return
      * @throws RemoteException 
      */
-    @Override    
     public String consulaPokemon(String pokemonIngresado) throws RemoteException {
         //Retorna la información de un pokémon en base a la ID de un pokemon ingresado
 
@@ -243,7 +242,6 @@ public class Pokemon implements irPokemon {
      * @return
      * @throws RemoteException 
      */
-    @Override
     public String safariPokemon() throws RemoteException {
         //Se inicializan la variables del  safari por cada llamada
         this.probabilidadCaptura = 20;
@@ -264,7 +262,6 @@ public class Pokemon implements irPokemon {
 
     }
 
-    @Override
     public String arrojarPokebola() throws RemoteException {
 
         String resultado;
@@ -288,7 +285,6 @@ public class Pokemon implements irPokemon {
         return resultado;
     }
 
-    @Override
     public String arrojarPiedra() throws RemoteException {
 
         String resultado;
@@ -303,7 +299,6 @@ public class Pokemon implements irPokemon {
 
     }
 
-    @Override
     public String arrojarCebo() throws RemoteException {
         String resultado;
         probabilidadHuir -= 5;
@@ -315,5 +310,17 @@ public class Pokemon implements irPokemon {
         }
 
         return resultado;
+    }
+    
+    public void agregarDinero(float monto){
+        this.bankService.agregarAlBalance(monto);
+    }
+    
+    public void quitarDinero(float monto){
+        this.bankService.quitarAlBalance(monto);
+    }
+    
+    public String verBalance(){
+        return this.bankService.verBalanceTotal();
     }
 }
