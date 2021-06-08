@@ -38,37 +38,39 @@ public class PokeConector {
         }
     }
     
-    public void mostrarPokemon(){
-        
-         ResultSet result = null;
-         
-         try {
-            PreparedStatement st = conn.prepareStatement("select * from POKEMON");
+    //Método que retorna el nombre de un pókemon en base a la id ingresada
+    public String nombrePokemon(int idPokemon) {
+
+        ResultSet result = null;
+        String pokemon = "";
+
+        try {
+            PreparedStatement st = conn.prepareStatement("select * from POKEMON where id="+idPokemon);
             result = st.executeQuery();
-            while (result.next()) {   
-                System.out.print("Nombre: ");
-                System.out.println(result.getString("name")); 
-                System.out.println("=======================");
+            while (result.next()) {
+                pokemon = result.getString("name");
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-         
+
+        return pokemon;
+
     }
-    
+
     //Metodo creado para recuperar los stats del pokemon ingresado en el orden:
-        //tipo_id hp attack defense specialAttack specialDefense speed
-    public ArrayList<Integer> recuperaStatsPokemon(String nombrePokemon, int idPokemon){
-        ArrayList<Integer> statsPokemon = new ArrayList(); 
-        
+    //tipo_id hp attack defense specialAttack specialDefense speed
+    public ArrayList<Integer> recuperaStatsPokemon(String nombrePokemon, int idPokemon) {
+        ArrayList<Integer> statsPokemon = new ArrayList();
+
         nombrePokemon = nombrePokemon.toUpperCase();
-        
+
         ResultSet result = null;
-         
-         try {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM POKEMON WHERE name='"+nombrePokemon+"' OR id='"+idPokemon+"';");
+
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM POKEMON WHERE name='" + nombrePokemon + "' OR id='" + idPokemon + "';");
             result = st.executeQuery();
-            while (result.next()) {   
+            while (result.next()) {
                 statsPokemon.add(result.getInt("tipo_id"));
                 statsPokemon.add(result.getInt("hp"));
                 statsPokemon.add(result.getInt("attack"));
@@ -83,15 +85,16 @@ public class PokeConector {
 
         return statsPokemon;
     }
+
     //Metodo creado para recuperar nombre de un pokemon por id
-    public String recuperaNombrePokemon(int idPokemon){
-        String nombreRecuperado="no encontrado";
+    public String recuperaNombrePokemon(int idPokemon) {
+        String nombreRecuperado = "no encontrado";
         ResultSet result;
-         
-         try {
-            PreparedStatement st = conn.prepareStatement("SELECT name FROM POKEMON WHERE id="+idPokemon);
+
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT name FROM POKEMON WHERE id=" + idPokemon);
             result = st.executeQuery();
-            while (result.next()) {   
+            while (result.next()) {
                 nombreRecuperado = result.getString("name");
             }
         } catch (SQLException ex) {
@@ -101,37 +104,38 @@ public class PokeConector {
         return nombreRecuperado;
 
     }
-    
+
     //Metodo creado para recuperar la ventaja de tipo del pokemon
-    public Double ventajaTipo(int idTipoA, int idTipoB){
+    public Double ventajaTipo(int idTipoA, int idTipoB) {
         Double ventajaTipoReal;
-        int ventajaTipoTabla=2;
+        int ventajaTipoTabla = 2;
         String nombreTipoB = nombreTipo(idTipoB);
-        
+
         ResultSet result;
 
         try {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM tipo WHERE id='"+idTipoA+"';");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM tipo WHERE id='" + idTipoA + "';");
             result = st.executeQuery();
-            while (result.next()) {   
+            while (result.next()) {
                 ventajaTipoTabla = result.getInt(nombreTipoB);
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
         ventajaTipoReal = transformadorMultiplicador(ventajaTipoTabla);
-        
+
         return ventajaTipoReal;
     }
+
     //Metodo creado para recuperar nombre de tipo dependiendo del id
-    public String nombreTipo(int id){
-        String nombreRecuperado="no encontrado";
+    public String nombreTipo(int id) {
+        String nombreRecuperado = "no encontrado";
         ResultSet result;
-         
-         try {
-            PreparedStatement st = conn.prepareStatement("SELECT name FROM tipo WHERE id="+id);
+
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT name FROM tipo WHERE id=" + id);
             result = st.executeQuery();
-            while (result.next()) {   
+            while (result.next()) {
                 nombreRecuperado = result.getString("name");
             }
         } catch (SQLException ex) {
@@ -140,29 +144,57 @@ public class PokeConector {
 
         return nombreRecuperado;
     }
-    
+
     //Metodo para transformar valores en tabla de tipo a los reales
-    public static Double transformadorMultiplicador(int valorTabla){
-    Double valorReal;
-    switch(valorTabla){
-        case 0:
-            valorReal = 0.0;
-            break;
-        case 1:
-            valorReal = 0.5;
-            break;
-        case 2:
-            valorReal = 1.0;
-            break;
-        case 3:
-            valorReal = 2.0;
-            break;
-        default:
-            valorReal = 1.0;
-            break;
+    public static Double transformadorMultiplicador(int valorTabla) {
+        Double valorReal;
+        switch (valorTabla) {
+            case 0:
+                valorReal = 0.0;
+                break;
+            case 1:
+                valorReal = 0.5;
+                break;
+            case 2:
+                valorReal = 1.0;
+                break;
+            case 3:
+                valorReal = 2.0;
+                break;
+            default:
+                valorReal = 1.0;
+                break;
+        }
+
+        return valorReal;
     }
 
-    return valorReal;
-    }
+    //Método que retorna la información de un pokemob en base a la ID ingresada
+    public String informacionPokemon(String idPokemon) {
+        String informacionPokemon = "";
 
+        ResultSet result = null;
+
+        try {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM POKEMON WHERE id = " + idPokemon + "");
+            result = st.executeQuery();
+            while (result.next()) {
+                System.out.println(result.getString("id"));
+                informacionPokemon = "N: " + result.getString("id") + "\n"
+                        + "Nombre: " + result.getString("name") + "\n"
+                        + "Tipo: " + nombreTipo(result.getInt("tipo_id")) + "\n"
+                        + "HP: " + result.getString("hp") + "\n"
+                        + "Ataque: " + result.getString("attack") + "\n"
+                        + "Defensa: " + result.getString("defense") + "\n"
+                        + "Ataque Especial: " + result.getString("specialAttack") + "\n"
+                        + "Defensa Especial: " + result.getString("specialDefense") + "\n"
+                        + "Velocidad: " + result.getString("speed") + "\n";
+
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        return informacionPokemon;
+    }
 }
