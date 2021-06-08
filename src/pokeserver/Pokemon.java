@@ -18,6 +18,8 @@ public class Pokemon implements irPokemon {
     private static int cantidadPokebola = 10;
     private static String pokemonSafari = "";
     PokeBankService bankService = new PokeBankService();
+    
+    private ArrayList<String> listaPokemon = new ArrayList<>();
 
     @Override
     public String pokeHoroscopo(int anho) throws RemoteException {
@@ -269,6 +271,7 @@ public class Pokemon implements irPokemon {
 
         if (probabilidad(probabilidadCaptura)) {
             resultado = "false-Has Capturado a " + this.pokemonSafari;
+            listaPokemon.add(this.pokemonSafari);
         } else {
             if (probabilidad(probabilidadHuir)) {
                 resultado = "false-" + this.pokemonSafari + " ha huido";
