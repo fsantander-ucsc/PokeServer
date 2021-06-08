@@ -65,7 +65,7 @@ public class Pokemon implements irPokemon {
 
         statsPokemonIngresado = pokeconn.recuperaStatsPokemon(pokemonIngresado, 0);
         Random random = new Random();
-        int idPokemonRandom = random.nextInt(721);
+        int idPokemonRandom = random.nextInt(721)+1;
         statsPokemonOponente = pokeconn.recuperaStatsPokemon("", idPokemonRandom);
 
         //stats, se utilizan at1 y def1 como variables base de ataque y defensa, pero si sus valores SP son mayores se les asigna ese valor 
