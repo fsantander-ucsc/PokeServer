@@ -20,6 +20,7 @@ public class Pokemon implements irPokemon {
     PokeBankService bankService = new PokeBankService();
     
     private ArrayList<String> listaPokemon = new ArrayList<>();
+    
 
     @Override
     public String pokeHoroscopo(int anho) throws RemoteException {
