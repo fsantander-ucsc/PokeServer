@@ -226,7 +226,7 @@ public class Pokemon implements irPokemon {
      * @return
      * @throws RemoteException 
      */
-    public String consulaPokemon(String pokemonIngresado) throws RemoteException {
+    public String consultaPokemon(String pokemonIngresado) throws RemoteException {
         //Retorna la información de un pokémon en base a la ID de un pokemon ingresado
 
         PokeConector pokeconn = new PokeConector();
