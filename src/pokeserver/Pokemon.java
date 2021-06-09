@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Pokemon implements irPokemon {
+
     private static int posibilidadFallo = 75;
 
     private static int probabilidadCaptura = 20;
@@ -18,9 +19,8 @@ public class Pokemon implements irPokemon {
     private static int cantidadPokebola = 10;
     private static String pokemonSafari = "";
     PokeBankService bankService = new PokeBankService();
-    
+
     private ArrayList<String> listaPokemon = new ArrayList<>();
-    
 
     @Override
     public String pokeHoroscopo(int anho) throws RemoteException {
@@ -68,7 +68,7 @@ public class Pokemon implements irPokemon {
 
         statsPokemonIngresado = pokeconn.recuperaStatsPokemon(pokemonIngresado, 0);
         Random random = new Random();
-        int idPokemonRandom = random.nextInt(721)+1;
+        int idPokemonRandom = random.nextInt(721) + 1;
         statsPokemonOponente = pokeconn.recuperaStatsPokemon("", idPokemonRandom);
 
         //stats, se utilizan at1 y def1 como variables base de ataque y defensa, pero si sus valores SP son mayores se les asigna ese valor 
@@ -204,10 +204,11 @@ public class Pokemon implements irPokemon {
         }
         return hit;
     }
+
     /**
-     * 
+     *
      * @param boolean probabilidad
-     * @return 
+     * @return
      */
     private static boolean probabilidad(int probabilidad) {
         //Retorna True o False dependiendo si el número random generado generado y la probabilidad ingresada
@@ -224,10 +225,10 @@ public class Pokemon implements irPokemon {
     }
 
     /**
-     * 
+     *
      * @param String pokemonIngresado
      * @return
-     * @throws RemoteException 
+     * @throws RemoteException
      */
     public String consultaPokemon(String pokemonIngresado) throws RemoteException {
         //Retorna la información de un pokémon en base a la ID de un pokemon ingresado
@@ -241,9 +242,8 @@ public class Pokemon implements irPokemon {
     }
 
     /**
-     * 
-     * @return
-     * @throws RemoteException 
+     *
+     * @return @throws RemoteException
      */
     public String safariPokemon() throws RemoteException {
         //Se inicializan la variables del  safari por cada llamada
@@ -260,7 +260,7 @@ public class Pokemon implements irPokemon {
         String nombrePokemon = pokeconn.nombrePokemon(pokemon);
         pokeconn.close();
         this.pokemonSafari = nombrePokemon;
-
+        quitarDinero(500);
         return (nombrePokemon + " salvaje ha aparecido");
 
     }
@@ -315,16 +315,16 @@ public class Pokemon implements irPokemon {
 
         return resultado;
     }
-    
-    public String agregarDinero(float monto){
+
+    public String agregarDinero(float monto) {
         return this.bankService.agregarAlBalance(monto);
     }
-    
-    public String quitarDinero(float monto){
+
+    public String quitarDinero(float monto) {
         return this.bankService.quitarAlBalance(monto);
     }
-    
-    public String verBalance(){
+
+    public String verBalance() {
         return this.bankService.verBalanceTotal();
     }
 }
