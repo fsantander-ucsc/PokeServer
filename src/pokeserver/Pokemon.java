@@ -138,10 +138,11 @@ public class Pokemon implements irPokemon {
         }
 
         //Loop batalla:
-        resumenBatalla.add("El pokemon mas rapido es: " + nombre1);
-        resumenBatalla.add(nombre1 + " tiene " + hp1 + " puntos de vida totales");
-        resumenBatalla.add(nombre2 + " tiene " + hp2 + " puntos de vida totales");
-        resumenBatalla.add(nombre1 + " tiene " + multiplicador1 + " como multiplicador de tipo");
+        resumenBatalla.add("¡Un " + pokeconn.recuperaNombrePokemon(idPokemonRandom)+" salvaje ha aparecido!\n\n");
+        resumenBatalla.add("El pokemon mas rapido es: " + nombre1+"\n");
+        resumenBatalla.add(nombre1 + " tiene " + hp1 + " puntos de vida totales\n");
+        resumenBatalla.add(nombre2 + " tiene " + hp2 + " puntos de vida totales\n");
+        resumenBatalla.add(nombre1 + " tiene " + multiplicador1 + " como multiplicador de tipo\n");
         resumenBatalla.add(nombre2 + " tiene " + multiplicador2 + " como multiplicador de tipo\n\nCOMIENZA BATALLA!\n");
         while (hp1 > 0 && hp2 > 0) {
             contadorTurnos++;
@@ -182,6 +183,12 @@ public class Pokemon implements irPokemon {
                 resumenTurno = "¡¡BATALLA TERMINADA!!";
                 if (hp1 > hp2) {
                     resumenTurno = resumenTurno + " " + nombre1 + " ES EL GANADOR";
+                    //Se agrega dinero si el pokemon1 coincide con el ingresado, en caso contrario se resta
+                    if(nombre1.equals(pokemonIngresado)){
+                        agregarDinero(100);
+                    }else{
+                        quitarDinero(50);
+                    }
                 } else {
                     resumenTurno = resumenTurno + " " + nombre2 + " ES EL GANADOR";
                 }
@@ -263,6 +270,10 @@ public class Pokemon implements irPokemon {
         quitarDinero(500);
         return (nombrePokemon + " salvaje ha aparecido");
 
+    }
+
+    public ArrayList<String> getListaPokemon() throws RemoteException{
+        return listaPokemon;
     }
 
     public String arrojarPokebola() throws RemoteException {
