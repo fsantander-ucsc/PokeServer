@@ -191,6 +191,12 @@ public class Pokemon implements irPokemon {
                     }
                 } else {
                     resumenTurno = resumenTurno + " " + nombre2 + " ES EL GANADOR";
+                    //Se agrega dinero si el pokemon1 coincide con el ingresado, en caso contrario se resta
+                    if(nombre2.equals(pokemonIngresado)){
+                        agregarDinero(100);
+                    }else{
+                        quitarDinero(50);
+                    }
                 }
                 resumenBatalla.add(resumenTurno);
             }
