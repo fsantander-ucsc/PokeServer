@@ -347,4 +347,8 @@ public class Pokemon implements irPokemon {
     public String verBalance() throws RemoteException{
         return this.bankService.verBalanceTotal();
     }
+    
+    public ArrayList<String> getListaPokemonCapturados() throws RemoteException{
+        return this.listaPokemon;
+    }
 }
