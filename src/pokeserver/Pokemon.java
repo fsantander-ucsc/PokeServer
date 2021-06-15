@@ -22,7 +22,8 @@ public class Pokemon implements irPokemon {
     PokeBankService bankService = new PokeBankService();
 
     private ArrayList<String> listaPokemon = new ArrayList<>();
-
+    
+    //Se define metodo para mostrar el signo zodiacal de pokemon al usuario ingresnado su año de nacimiento
     @Override
     public String pokeHoroscopo(int anho) throws RemoteException {
 
@@ -30,7 +31,7 @@ public class Pokemon implements irPokemon {
         pokeconn.pokeConectarBaseDatos();
 
         String pokemon = "";
-
+        //Lista de signos pokemon 
         String[] listaPokemon = {
             "Umbreon",
             "Pikachu",
@@ -44,12 +45,14 @@ public class Pokemon implements irPokemon {
             "Bulbasaur",
             "Appletun",
             "Arceus"};
-
+        
+        //Se calcula que signo corresponde al año ingresado siguiendo el ciclo de 12 definido por el horoscopo chino
         int num_signo = (Math.abs(2020 - anho)) % 12;
         if (anho < 2020) {
             num_signo = 12 - num_signo;
         }
-
+        
+        //Se retorna el pokemon correspondiente al año ingresado
         return listaPokemon[num_signo];
     }
 
