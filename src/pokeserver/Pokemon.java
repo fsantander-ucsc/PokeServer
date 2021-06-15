@@ -55,7 +55,8 @@ public class Pokemon implements irPokemon {
         //Se retorna el pokemon correspondiente al año ingresado
         return listaPokemon[num_signo];
     }
-
+    
+    //Se define el metodo batalla donde se agregan las interacciones y turnos de ésta a un arraylist
     @Override
     public ArrayList<String> batalla(String pokemonIngresado) throws RemoteException {
         //Poke variables para usar la pkDb
