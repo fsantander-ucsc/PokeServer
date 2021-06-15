@@ -18,6 +18,7 @@ public class Pokemon implements irPokemon {
     private static int probabilidadHuir = 20;
     private static int cantidadPokebola = 10;
     private static String pokemonSafari = "";
+
     PokeBankService bankService = new PokeBankService();
 
     private ArrayList<String> listaPokemon = new ArrayList<>();
@@ -260,6 +261,7 @@ public class Pokemon implements irPokemon {
      */
     public String safariPokemon() throws RemoteException {
         //Se inicializan la variables del  safari por cada llamada
+        this.quitarDinero(500);
         this.probabilidadCaptura = 20;
         this.probabilidadHuir = 20;
         this.cantidadPokebola = 10;
@@ -273,7 +275,8 @@ public class Pokemon implements irPokemon {
         String nombrePokemon = pokeconn.nombrePokemon(pokemon);
         pokeconn.close();
         this.pokemonSafari = nombrePokemon;
-        quitarDinero(500);
+        
+        
         return (nombrePokemon + " salvaje ha aparecido");
 
     }
@@ -333,15 +336,15 @@ public class Pokemon implements irPokemon {
         return resultado;
     }
 
-    public String agregarDinero(float monto) {
+    public String agregarDinero(float monto) throws RemoteException{
         return this.bankService.agregarAlBalance(monto);
     }
 
-    public String quitarDinero(float monto) {
+    public String quitarDinero(float monto) throws RemoteException{
         return this.bankService.quitarAlBalance(monto);
     }
 
-    public String verBalance() {
+    public String verBalance() throws RemoteException{
         return this.bankService.verBalanceTotal();
     }
 }
